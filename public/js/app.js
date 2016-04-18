@@ -1,21 +1,33 @@
 (function() {
 
-  function saveItem(id, description) {
-    story.items[id].description = description;
+  function saveSpace(id, description, connections) {
+    story.spaces[id] = {
+      description: description,
+      connections: connections
+    };
     return true;
   }
 
   function saveItem(id, description) {
-    story.items[id].description = description;
+    story.items[id] = {
+      description: description
+    };
     return true;
   }
 
   function processThingForm() {
     var id = $('#thing-id').val();
-    var desc = $('#thing-description').val();
+    var description = $('#thing-description').val();
+    var connections = {};
     if ($("#thing-is-item").prop('checked')) {
-      return saveItem(id, desc);
+      return saveItem(id, description);
     }
+    $('.thing-connections .form-connection').each(function (index) {
+      connections[$('#connection-id-' + index).val()] = {
+        description: $('#connection-description-' + index).val()
+      };
+    });
+    return saveSpace(id, description, connections);
   }
 
   function addConnectionForm() {
