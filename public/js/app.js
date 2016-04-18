@@ -1,7 +1,24 @@
 (function() {
 
+  function saveItem(id, description) {
+    story.items[id].description = description;
+    return true;
+  }
+
+  function processThingForm() {
+    var id = $('#thing-id').val();
+    var desc = $('#thing-description').val();
+    if ($("#thing-is-item").prop('checked')) {
+      return saveItem(id, desc);
+    }
+  }
+
+  function addConnectionForm() {
+    var index = $('.thing-connections .form-connection').length;
+    fillEditAppendConnection(index, '', '');
+  }
+
   function clearEditAppendConnection() {
-    console.log($('.thing-connections').filter('.form-connection'));
     $('.thing-connections').find('.form-connection').remove();
   }
 
@@ -87,8 +104,8 @@
 
   var container = document.getElementById('story-graph');
   var data = {
-    nodes: getNodes(),
-    edges: getEdges()
+    nodes: new vis.DataSet(getNodes()),
+    edges: new vis.DataSet(getEdges())
   };
   var options = {
     layout: {
@@ -101,18 +118,22 @@
       font: {
         strokeWidth: 5,
         strokeColor: 'white'
+      },
+      "smooth": {
+        "type": "discrete",
+        "forceDirection": "none"
       }
     },
     "physics": {
-      "hierarchicalRepulsion": {
+      "repulsion": {
         "centralGravity": 0,
         "springLength": 0,
         "springConstant": 0,
-        "nodeDistance": 200,
+        "nodeDistance": 300,
         "damping": 1
       },
       "minVelocity": 0.75,
-      "solver": "hierarchicalRepulsion"
+      "solver": "repulsion"
     }
   };
   var network = new vis.Network(container, data, options);
@@ -129,4 +150,22 @@
       return fillEditForm(id, item, true);
     }
   });
+
+  $('.add-connection').click(function (e) {
+    e.preventDefault();
+    addConnectionForm();
+  });
+
+  $('.save-thing').click(function (e) {
+    e.preventDefault();
+    if (processThingForm()) {
+      network.setData({nodes: getNodes(), edges: getEdges()});
+      network.redraw();
+    }
+  });
+
+  $("#thing-is-item").click(function () {
+    $('.thing-connections').toggle('hidden');
+  });
+
 }());
