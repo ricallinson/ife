@@ -28,6 +28,7 @@
   function getEdges() {
     var edges = [];
     var connection;
+    var placement;
     for (id in story.spaces) {
       for (i in story.spaces[id].connections) {
         connection = story.spaces[id].connections[i];
@@ -37,6 +38,13 @@
           label: connection.description
         });
       }
+    }
+    for (id in story.placements) {
+      to = story.placements[id];
+      edges.push({
+          from: id,
+          to: to
+        });
     }
     return edges;
   }
