@@ -5,6 +5,11 @@
     return true;
   }
 
+  function saveItem(id, description) {
+    story.items[id].description = description;
+    return true;
+  }
+
   function processThingForm() {
     var id = $('#thing-id').val();
     var desc = $('#thing-description').val();
@@ -36,6 +41,8 @@
 
   // Populate the edit form.
   function fillEditForm(id, thing, isItem) {
+    var id;
+    var index = 0;
     $('.thing-connections').addClass("hidden");
     clearEditAppendConnection();
     $('#thing-edit #thing-id').val(id);
@@ -45,9 +52,9 @@
       return;
     }
     $('.thing-connections').removeClass("hidden");
-    for (i in thing.connections) {
-      connection = thing.connections[i];
-      fillEditAppendConnection(i, connection.id, connection.description);
+    for (id in thing.connections) {
+      connection = thing.connections[id];
+      fillEditAppendConnection(index++, id, connection.description);
     }
   }
 
@@ -83,11 +90,11 @@
     var connection;
     var placement;
     for (id in story.spaces) {
-      for (i in story.spaces[id].connections) {
-        connection = story.spaces[id].connections[i];
+      for (cid in story.spaces[id].connections) {
+        connection = story.spaces[id].connections[cid];
         edges.push({
           from: id,
-          to: connection.id,
+          to: cid,
           label: connection.description
         });
       }
