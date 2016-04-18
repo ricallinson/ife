@@ -73,7 +73,7 @@ var story = {
 				},
 				{
 					id: 'bobs house driveway',
-					description: 'Pew.'
+					description: 'Mew.'
 				}
 			]
 		}

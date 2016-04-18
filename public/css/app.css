@@ -5,3 +5,6 @@ html, body {
   height: 600px;
   overflow: auto;
 }
+.hidden {
+	display: none;
+}

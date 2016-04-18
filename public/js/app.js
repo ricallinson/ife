@@ -1,5 +1,40 @@
 (function() {
 
+  function clearEditAppendConnection() {
+    console.log($('.thing-connections').filter('.form-connection'));
+    $('.thing-connections').find('.form-connection').remove();
+  }
+
+  // Append a connection.
+  function fillEditAppendConnection(index, id, description) {
+    var fields = $('.tmpl-connection').clone();
+    fields.removeClass('tmpl-connection');
+    fields.addClass('form-connection');
+    fields.find(".connection-id").prop("id", "connection-id-" + index);
+    fields.find(".connection-id").val(id);
+    fields.find(".connection-description").prop("id", "connection-description-" + index);
+    fields.find(".connection-description").val(description);
+    $('.thing-connections .panel-body').append(fields);
+  }
+
+  // Populate the edit form.
+  function fillEditForm(id, thing, isItem) {
+    $('.thing-connections').addClass("hidden");
+    clearEditAppendConnection();
+    $('#thing-edit #thing-id').val(id);
+    $('#thing-edit #thing-is-item').prop('checked', isItem);
+    $('#thing-edit #thing-description').val(thing.description);
+    if (isItem) {
+      return;
+    }
+    $('.thing-connections').removeClass("hidden");
+    for (i in thing.connections) {
+      connection = thing.connections[i];
+      fillEditAppendConnection(i, connection.id, connection.description);
+    }
+  }
+
+  // Converts the story into Vis.js nodes.
   function getNodes() {
     var nodes = [];
     var id;
@@ -25,6 +60,7 @@
     return nodes;
   }
 
+  // Converts the story into Vis.js edges.
   function getEdges() {
     var edges = [];
     var connection;
@@ -80,4 +116,17 @@
     }
   };
   var network = new vis.Network(container, data, options);
+
+  network.on("click", function (params) {
+    var id = params.nodes[0];
+    var space = story.spaces[id];
+    var item;
+    if (space) {
+      return fillEditForm(id, space, false);
+    }
+    item = story.items[id];
+    if (item) {
+      return fillEditForm(id, item, true);
+    }
+  });
 }());
