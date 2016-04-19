@@ -1,7 +1,25 @@
-p {
-	border-left: 5px solid #fff;
-	padding-left: 5px;
+@font-face {
+	font-family: OpenDyslexic; src: url('../otf/OpenDyslexic-Regular.otf');
+	font-family: OpenDyslexic; font-weight: bold; src: url('../otf/OpenDyslexic-Bold.otf');
+	font-family: OpenDyslexic; font-style: italic; src: url('../otf/OpenDyslexic-Italic.otf');
+	font-family: OpenDyslexic; font-weight: bold; font-style: italic; src: url('../otf/OpenDyslexic-BoldItalic.otf');
+} 
+
+html, body {
+	font-family: sans-serif;
+}
+
+span {
+	/*border-left: 5px solid #fff;
+	padding-left: 5px;*/
 }
 .follow {
-	border-left: 5px solid #ccc;
+	border-bottom: 1px dashed #999;
+}
+.follow:hover {
+	cursor: pointer;
+	cursor: hand;
+}
+.follow.item {
+	border-bottom: 1px solid #999;
 }
