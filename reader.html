@@ -15,7 +15,19 @@
 <body>
   <div class="container-fluid">
   	<h1 class="title"></h1>
-    <div id="reader" data-space-id="bobs house only room"></div>
+  	<div class="row">
+  		<div class="col-md-8 max-height">
+  			<div id="reader" data-space-id="bobs house only room"></div>
+  		</div>
+  		<div class="col-md-4 max-height">
+  			<div class="panel panel-default">
+  				<div class="panel-heading">Items</div>
+          		<div class="panel-body">
+          			<ul id="items"></ul>
+          		</div>
+          	</div>
+  		</div>
+  	</div>
   </div>
   <script type="text/javascript" src="./public/js/story.js"></script>
   <script type="text/javascript" src="./public/js/reader.js"></script>

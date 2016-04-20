@@ -35,8 +35,9 @@ var story = {
 				'bobs house only room': {
 					description: 'The cat flap slams shut and regardless of how much mud is thrown, it will not budge one bit.',
 					if: {
-						id: 'bobs house back door key',
-						description: 'The rusty old cat flap has a worn area that looks remarkably like the shape of a bottle opener.'
+						'bobs house back door key': {
+							description: 'The rusty old cat flap has a worn area that looks remarkably like the shape of a bottle opener.'
+						}
 					}
 				},
 				'bobs house driveway': {
@@ -83,7 +84,7 @@ var story = {
 				description: 'To the sound of a duck passing wind a small bottle opener appears on the ground.'
 			},
 			'use': {
-				description: 'As if designed by the greatest minds of Silicon Valley the bottle opener perfectly positioned gains entry to Bobs back door.'
+				description: 'As if designed by the greatest minds of Silicon Valley the bottle opener perfectly positioned could gain entry to Bobs back door.'
 			}
 		}
 	},
